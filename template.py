@@ -42,6 +42,39 @@ class ClassGenerator(ABC):
     def get_attributes(self) -> str:
         return ""
     
-    #16.3
+class HelloWorldGenerator(ClassGenerator):
+    def init(self, class_name: str, message: str):
+        self._class_name = class_name
+        self._message = message
+
+    def get_class_name(self) -> str:
+        return self._class_name
+
+    def get_methods(self) -> str:
+        return (
+            "    public static void main(String[] args) {\n"
+            f'        System.out.println("{self._message}");\n'
+            "    }"
+        )
+
+
+if name == "main":
+    print("--- Gerador de Classes Java via Template Method ---")
+
+    nome_classe = input("Digite o nome da classe Java (ex: MinhaClasse): ").strip()
+    mensagem = input("Digite a mensagem que a classe deve imprimir: ").strip()
+
+    gerador = HelloWorldGenerator(nome_classe, mensagem)
+
+    codigo_java_final = gerador.generate_class_code()
+
+    nome_arquivo = f"{nome_classe}.java"
+    with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+        arquivo.write(codigo_java_final)
+
+    print(f"\nArquivo '{nome_arquivo}' gerado com sucesso!")
+    print("\n--- Conteúdo do arquivo gerado: ---")
+    print(codigo_java_final)
+
 
     
