@@ -20,3 +20,7 @@ class ClassGenerator(ABC):
         atributos = self.get_attributes()
         if atributos:
             linhas_codigo.append(atributos)
+        linhas_codigo.append(self.get_methods())
+        linhas_codigo.append("}")
+        retunr "\n".join(linhas_codigo)
+
